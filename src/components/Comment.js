@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+//Здесь явно лишний стейт. Убери его и перепиши компонент на Functional Component
 class Comment extends Component {
 
     constructor() {
