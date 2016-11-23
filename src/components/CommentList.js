@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 
@@ -24,6 +24,13 @@ class CommentList extends Component {
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
         return <ul>{commentItems}</ul>
     }
+}
+
+CommentList.propTypes = {
+  comment: PropTypes.object,
+  isOpen: PropTypes.bool.isRequired,
+  toggleOpen: PropTypes.func.isRequired
+
 }
 
 export default toggleOpen(CommentList)

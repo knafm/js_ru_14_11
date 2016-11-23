@@ -1,11 +1,15 @@
-import React, { Component }  from 'react'
+import React, { Component, PropTypes }  from 'react'
 import Article from './Article'
 import accordion from '../decorators/accordion'
 
 
 class ArticleList extends Component {
 
-//вынес в метод просто
+  /**
+   * getArticleItems - просто вынес в метод
+   *
+   * @return {array}  массив статей
+   */
   getArticleItems() {
     const { articles } = this.props;
     return articles.map(article => (
@@ -26,6 +30,13 @@ class ArticleList extends Component {
             </ul>
         )
     }
+
+}
+ArticleList.propTypes = {
+  articles: PropTypes.array.isRequired,
+  openArticle: PropTypes.func.isRequired,
+  openArticleId: PropTypes.string,
+
 
 }
 

@@ -11,12 +11,15 @@ function Article(props) {
     )
 }
 
+//добавлены пропсы isOpen toggleOpen
 Article.propTypes = {
     article: PropTypes.shape({
         title: PropTypes.string.isRequired,
         comments: PropTypes.array,
         text: PropTypes.string
-    }).isRequired
+    }).isRequired,
+    isOpen: PropTypes.bool.isRequired,
+    toggleOpen: PropTypes.func.isRequired
 }
 
 function getBody(props) {

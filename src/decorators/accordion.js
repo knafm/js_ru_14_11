@@ -4,6 +4,7 @@ export default (Component) => class WrappedComponent extends React.Component {
   state = {
       openArticleId: null
   }
+
   openArticle = id => ev => {
     // если id тот же, то просто сбрасываем openArticleId в null
     if (this.state.openArticleId == id) {
@@ -20,6 +21,7 @@ export default (Component) => class WrappedComponent extends React.Component {
   render(){
     // насколько нормально так выносить ? помоему так лучше читается.
     // нет подводных камней?
+
     const settings = {
       ...this.props,
       ...this.state,
