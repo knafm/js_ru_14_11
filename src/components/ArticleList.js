@@ -12,7 +12,7 @@ class ArticleList extends Component {
       <li key = {article.id}>
         <Article
           article = {article}
-          isOpen = {article.id == this.props.openArticleId}
+          isOpen = {article.id == this.props.openArticleId }
           toggleOpen = {this.props.openArticle(article.id)}
         />
       </li>

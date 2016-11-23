@@ -5,9 +5,17 @@ export default (Component) => class WrappedComponent extends React.Component {
       openArticleId: null
   }
   openArticle = id => ev => {
+    // если id тот же, то просто сбрасываем openArticleId в null
+    if (this.state.openArticleId == id) {
       this.setState({
-          openArticleId: id
+          openArticleId: null
       })
+    }else{
+      this.setState({
+        openArticleId: id
+      })
+    }
+
   }
   render(){
     // насколько нормально так выносить ? помоему так лучше читается.
