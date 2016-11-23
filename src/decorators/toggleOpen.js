@@ -17,5 +17,4 @@ export default (Component) => class WrappedComponent extends React.Component {
             isOpen: !this.state.isOpen
         })
     }
-
 }
