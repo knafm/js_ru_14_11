@@ -7,15 +7,10 @@ export default (Component) => class WrappedComponent extends React.Component {
 
   openArticle = id => ev => {
     // если id тот же, то просто сбрасываем openArticleId в null
-    if (this.state.openArticleId == id) {
+
       this.setState({
-          openArticleId: null
+          openArticleId: (this.state.openArticleId == id)? null:id
       })
-    }else{
-      this.setState({
-        openArticleId: id
-      })
-    }
 
   }
   render(){
