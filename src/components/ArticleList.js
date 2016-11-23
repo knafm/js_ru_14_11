@@ -2,23 +2,27 @@ import React, { Component }  from 'react'
 import Article from './Article'
 import accordion from '../decorators/accordion'
 
+
 class ArticleList extends Component {
 
-    render() {
-        const { articles } = this.props
-        const articleItems = articles.map(article => (
-            <li key = {article.id}>
-                <Article
-                    article = {article}
-                    isOpen = {article.id == this.props.openArticleId}
-                    toggleOpen = {this.props.openArticle(article.id)}
-                />
-            </li>
-        ))
+//вынес в метод просто
+  getArticleItems() {
+    const { articles } = this.props;
+    return articles.map(article => (
+      <li key = {article.id}>
+        <Article
+          article = {article}
+          isOpen = {article.id == this.props.openArticleId}
+          toggleOpen = {this.props.openArticle(article.id)}
+        />
+      </li>
+    ))
+  }
 
+    render() {
         return (
             <ul>
-                {articleItems}
+                {this.getArticleItems()}
             </ul>
         )
     }
