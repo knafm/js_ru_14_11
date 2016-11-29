@@ -28,10 +28,10 @@ export default (Component) => class WrappedComponent extends React.Component {
 
   }
   isOpen = id => {
-
+// TODO: переписать колхоз
     return this.props.articles.some(item=>{
        if (item.id === id){
-         //console.log(`совпало? ${this.compareDates(item.date)}`);
+         console.log(`совпало? ${this.compareDates(item.date)}`);
          return this.compareDates(item.date)
        }
      })
@@ -48,7 +48,11 @@ export default (Component) => class WrappedComponent extends React.Component {
       return true
     } else {
       //говнокод
-      return itemDate in dates.extra? true: false ;
+      for (let key in dates.extra){
+        console.log('нашел совпадения в экстра вернул тру');
+        if (itemDate == dates.extra[key]) return true;
+      }
+      return false
     }
   }
   // TODO: диспатч extra , пихаем туда дату соотв статье (считаем что она уникальная)
