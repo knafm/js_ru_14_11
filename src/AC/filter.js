@@ -1,8 +1,8 @@
 import * as types from '../constants'
 
-export function setExtra(extra) {
+export function toggleExtra(extra) {
     return {
-        type: types.SET_FILTER_EXTRA,
+        type: types.TOGGLE_FILTER_EXTRA,
         payload: extra
     }
 }
@@ -13,11 +13,5 @@ export function setRange(range) {
           from: Date.parse(range.from),
           to: Date.parse(range.to),
         }
-    }
-}
-export function deleteExtra(extra) {
-    return {
-        type: types.DELETE_FILTER_EXTRA,
-        payload: extra
     }
 }

@@ -1,8 +1,9 @@
-import React, { Component, PropTypes }  from 'react'
+import React, {Component, PropTypes}  from 'react'
 import Article from './Article'
-import accordion from '../decorators/accordion'
-import filter from '../decorators/filter'
-import { connect } from 'react-redux'
+//import accordion from '../decorators/accordion'
+import filterMe from '../decorators/filterMe'
+import * as filters from '../AC/filter'
+import {connect} from 'react-redux'
 
 class ArticleList extends Component {
     static propTypes = {
@@ -36,20 +37,20 @@ class ArticleList extends Component {
 
 
     render() {
-        const { articles, isOpen, toggleOpenItem } = this.props
+        const {articles, isOpen, toggleOpenItem} = this.props
 
         const articleItems = articles.map(article => (
-            <li key = {article.id}>
+            <li key={article.id}>
                 <Article
-                    article = {article}
-                    isOpen = {isOpen(article.id)}
-                    toggleOpen = {toggleOpenItem(article.id)}
+                    article={article}
+                    isOpen={isOpen(article.id)}
+                    toggleOpen={toggleOpenItem(article.id)}
                 />
             </li>
         ))
 
         return (
-            <ul ref = {this.getContainerRef}>
+            <ul ref={this.getContainerRef}>
                 {articleItems}
             </ul>
         )
@@ -59,4 +60,6 @@ class ArticleList extends Component {
 export default connect(state => ({
     articles: state.articles,
     filter: state.filter
-}))(filter(ArticleList))
+}),{
+    filters
+})(filterMe(ArticleList))
