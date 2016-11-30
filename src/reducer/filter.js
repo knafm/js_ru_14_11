@@ -3,14 +3,15 @@ import * as types from '../constants'
 export default (filterState = {from: null,to: null, extra: []}, action) => {
     const { type, payload } = action
     switch (type) {
-        case types.TOGGLE_FILTER_EXTRA: return filterState ={
+        case types.ADD_FILTER_EXTRA: return filterState ={
             extra: filterState.extra.concat(payload),
             from: filterState.from,
             to: filterState.to
           }
-        case types.DELETE_FILTER_EXTRA: return filterState ={
+        case types.DELETE_FILTER_EXTRA:
+            return filterState ={
             extra: filterState.extra.filter((item)=>{
-              item != payload.extra
+              return item != payload
             }),
             from: filterState.from,
             to: filterState.to

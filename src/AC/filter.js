@@ -1,8 +1,14 @@
 import * as types from '../constants'
 
-export function toggleExtra(extra) {
+export function addExtra(extra) {
     return {
-        type: types.TOGGLE_FILTER_EXTRA,
+        type: types.ADD_FILTER_EXTRA,
+        payload: extra
+    }
+}
+export function deleteExtra(extra) {
+    return {
+        type: types.DELETE_FILTER_EXTRA,
         payload: extra
     }
 }

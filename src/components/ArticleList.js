@@ -61,5 +61,5 @@ export default connect(state => ({
     articles: state.articles,
     filter: state.filter
 }),{
-    filters
+    ...filters
 })(filterMe(ArticleList))
