@@ -6,11 +6,12 @@ export default (Component) => class WrappedComponent extends React.Component {
     constructor() {
         super()
         this.searchDateByID = this.searchDateByID.bind(this)
+        this.articlesFilter = this.articlesFilter.bind(this)
     }
 
     render() {
         const {articles} = this.props
-        return <Component {...this.props} isOpen={this.isOpen} toggleOpenItem={this.toggleOpenItem}/>
+        return <Component {...this.props} isOpen={this.isOpen} toggleOpenItem={this.toggleOpenItem} articlesFilter={this.articlesFilter}/>
     }
 
     searchDateByID(id) {
@@ -31,14 +32,19 @@ export default (Component) => class WrappedComponent extends React.Component {
     compareDates(itemDate) {
         let dates = this.props.filter;
         let parcedDate = Date.parse(itemDate);
-        if (Date.parse(itemDate) >= dates.from && Date.parse(itemDate) <= dates.to) {
-            return true
-        } else {
             for (let item of dates.extra) {
                 if (parcedDate == item) return true;
             }
-            return false
-        }
+    }
+
+    articlesFilter(itemDate){
+      let date = Date.parse(itemDate)
+      const {from, to} = this.props.filter
+      if (date >= from && date <=to) {
+        return true
+      }else {
+        return false
+      }
     }
 
     toggleOpenItem = id => ev => {

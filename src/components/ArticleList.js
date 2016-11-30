@@ -38,8 +38,8 @@ class ArticleList extends Component {
 
     render() {
         const {articles, isOpen, toggleOpenItem} = this.props
-
-        const articleItems = articles.map(article => (
+        const filtredArticles = articles.filter(item=> this.props.articlesFilter(item.date))
+        const articleItems = filtredArticles.map(article => (
             <li key={article.id}>
                 <Article
                     article={article}
@@ -48,6 +48,8 @@ class ArticleList extends Component {
                 />
             </li>
         ))
+
+
 
         return (
             <ul ref={this.getContainerRef}>
