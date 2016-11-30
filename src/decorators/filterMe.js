@@ -1,7 +1,10 @@
 import React  from 'react'
 import store from '../store'
 import {addExtra, deleteExtra} from '../AC/filter'
-
+//это ты перемудрил, во-первых лучше не тянуть стор руками, как ты теперь за обновлениями следить будешь? Используй react-redux
+//во-вторых это разовая задача, незачем ее в декоратор выносить
+//ну и логика сложная, надо было просто пофильтровать список статей
+//не понятно к чему сдесь toggleOpenItem
 export default (Component) => class WrappedComponent extends React.Component {
     constructor() {
         super()
