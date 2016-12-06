@@ -1,9 +1,13 @@
 import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
+import NewCommentForm from './NewCommentForm'
 
 class CommentList extends Component {
     static propTypes = {
+        commentIds: PropTypes.array.isRequired,
+        //from connect
         comments: PropTypes.array.isRequired,
         //from toggleOpen decorator
         isOpen: PropTypes.bool.isRequired,
@@ -28,7 +32,7 @@ class CommentList extends Component {
         return (
             <div>
                 {this.getButton()}
-                {this.getList()}
+                {this.getBody()}
             </div>
         )
     }
@@ -40,12 +44,15 @@ class CommentList extends Component {
         return <a href="#" onClick = {toggleOpen}>{isOpen ? 'hide' : 'show'} comments</a>
     }
 
-    getList() {
+    getBody() {
         const { comments, isOpen } = this.props
-        if (!isOpen || !comments.length) return null
+        const commentForm = <NewCommentForm />
+        if (!isOpen || !comments.length) return <div>{commentForm}</div>
         const commentItems = comments.map(comment => <li key = {comment.id}><Comment comment = {comment} /></li>)
-        return <ul>{commentItems}</ul>
+        return <div><ul>{commentItems}</ul>{commentForm}</div>
     }
 }
 
-export default toggleOpen(CommentList)
+export default connect((state, props) => ({
+    comments: props.commentIds.map(id => state.comments.get(id))
+}))(toggleOpen(CommentList))
