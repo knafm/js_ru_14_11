@@ -14,6 +14,7 @@ export default (articlesState = defaultArticles , action) => {
             return articlesState.filter(article => article.id != payload.articleId)
         case ADD_COMMENT:{
             return articlesState.update(payload.articleId, (value)=>{
+            //не мутируй данные! Мы для этого даже immutable завели
               value.comments.push(payload.id);
               return value
             })}
