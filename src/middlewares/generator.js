@@ -1,10 +1,8 @@
 import {ADD_COMMENT} from '../constants'
+import {updateArticleComments} from '../AC/articles'
 export default store => next => action => {
-
     if (action.type === ADD_COMMENT){
-        console.log('---', 'before add comment: ', store.getState().comments)
-        action.payload.id = new Date(milliseconds);
+        action.payload.id = new Date().getTime();
     }
     next(action);
-    console.log('---', 'after', store.getState())
 }
