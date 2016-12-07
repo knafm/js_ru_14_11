@@ -1,5 +1,5 @@
 import { normalizedArticles } from '../fixtures'
-import { DELETE_ARTICLE } from '../constants'
+import { DELETE_ARTICLE, UPDATE_ARTICLE_COMMENTS, ADD_COMMENT } from '../constants'
 import { Map } from 'immutable'
 
 const defaultArticles = normalizedArticles.reduce((acc, article)=>{
@@ -12,6 +12,11 @@ export default (articlesState = defaultArticles , action) => {
     switch (type) {
         case DELETE_ARTICLE:
             return articlesState.filter(article => article.id != payload.articleId)
+        case ADD_COMMENT:{
+            return articlesState.update(payload.articleId, (value)=>{
+              value.comments.push(payload.id);
+              return value
+            })}
     }
 
     return articlesState

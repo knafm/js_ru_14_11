@@ -1,4 +1,5 @@
 import { DELETE_ARTICLE } from '../constants'
+import { UPDATE_ARTICLE_COMMENTS } from '../constants'
 
 export function deleteArticle(articleId) {
     return {
@@ -7,4 +8,14 @@ export function deleteArticle(articleId) {
             articleId
         }
     }
+}
+
+export function updateArticleComments(articleId, commentId) {
+  return {
+    type: UPDATE_ARTICLE_COMMENTS,
+    payload:{
+      articleId,
+      commentId
+    }
+  }
 }

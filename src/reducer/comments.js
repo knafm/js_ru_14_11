@@ -11,7 +11,7 @@ export default (comments = defaultComments, action) => {
 
     switch (type) {
         case ADD_COMMENT:
-            return comments.set()
+            return comments.set(payload.id,{...payload})
     }
 
     return comments
