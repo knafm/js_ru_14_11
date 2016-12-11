@@ -1,9 +1,10 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { addComment } from '../AC/comments'
+import { addComment, loadArticleComments } from '../AC/comments'
 import Comment from './Comment'
 import toggleOpen from '../decorators/toggleOpen'
 import NewCommentForm from './NewCommentForm'
+import Loader from './Loader'
 
 class CommentList extends Component {
     static propTypes = {
@@ -20,12 +21,17 @@ class CommentList extends Component {
     }
 
 
-    componentWillReceiveProps() {
-        //console.log('---', 'CL receiving props')
+    componentWillReceiveProps(nextProps) {
+        console.log('---', 'CL receiving props')
     }
 
     componentWillUpdate() {
-        //console.log('---', 'CL will update')
+        console.log('---', 'CL will update')
+    }
+    componentDidMount() {
+        console.log(`-- CL did mount`);
+        const {article} = this.props
+        this.props.loadArticleComments(article.id)
     }
 
 
@@ -40,7 +46,8 @@ class CommentList extends Component {
 
 
     getButton() {
-        const { comments, isOpen, toggleOpen } = this.props
+        const { comments, isOpen, toggleOpen, loading} = this.props
+        if (loading) return <Loader/>
         if ( !comments.length) return <span>No comments yet</span>
         return <a href="#" onClick = {toggleOpen}>{isOpen ? 'hide' : 'show'} comments</a>
     }
@@ -55,5 +62,8 @@ class CommentList extends Component {
 }
 
 export default connect((state, props) => ({
-    comments: (props.article.comments || []).map(id => state.comments.get(id))
-}), { addComment })(toggleOpen(CommentList))
+    //comments: (props.article.comments || []).map(id => state.comments.get(id)),
+    article: props.article,
+    loading: state.comments.loading,
+    comments: state.comments.entities.toArray()
+}), { addComment, loadArticleComments  })(toggleOpen(CommentList))
