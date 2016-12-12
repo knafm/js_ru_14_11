@@ -31,6 +31,7 @@ class CommentList extends Component {
     componentDidMount() {
         console.log(`-- CL did mount`);
         const {article} = this.props
+        //здесь следует сделать проверки, нужно ли загружать их, что б не грузить каждый раз. + componentDidMount не лучшее решение
         this.props.loadArticleComments(article.id)
     }
 
