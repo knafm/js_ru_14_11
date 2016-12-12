@@ -26,6 +26,7 @@ export default (comments = defaultState, action) => {
             return comments.set(generatedId, {...payload.comment, id: generatedId})
 
         case LOAD_COMMENTS + START:
+              //здесь не достаточно повесить loading на весь comments, ведь ты для конкрентной статьи загружаешь
             return comments.set('loading', true)
 
         case LOAD_COMMENTS + SUCCESS:
