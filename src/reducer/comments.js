@@ -29,6 +29,7 @@ export default (comments = defaultState, action) => {
             return comments.set('loading', true)
 
         case LOAD_COMMENTS + SUCCESS:
+            //сейчас загружая комменты для одной статьи ты перезатираешь прошлые; используй .mergeIn
             return comments.set('entities',arrayToMap(payload.comments, CommentModel))
                             .set('loading', false)
     }
