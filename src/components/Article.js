@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react'
 import { findDOMNode } from 'react-dom'
 import CommentList from './CommentList'
-import { deleteArticle } from '../AC/articles'
+import Loader from './Loader'
+import { deleteArticle, loadArticle } from '../AC/articles'
 import { connect } from 'react-redux'
 
 class Article extends Component {
@@ -13,15 +14,23 @@ class Article extends Component {
 */
 
     componentWillUpdate() {
-        console.log('---', 'updating Article')
+    }
+
+    componentDidMount() {
+        const { article, loadArticle, articleId } = this.props
+        if (!article || !article.text) loadArticle(articleId)
+    }
+
+    componentWillReceiveProps(nextProps) {
+//        if (nextProps.isOpen && !this.props.isOpen && !nextProps.article.text) this.props.loadArticle(this.props.article.id)
     }
 
     componentDidUpdate() {
-        console.log('---', findDOMNode(this.refs.comments))
     }
 
     render() {
         const { article, toggleOpen } = this.props
+        if (!article) return null
         return (
             <section>
                 <h3 onClick = {toggleOpen}>{article.title}</h3>
@@ -35,10 +44,11 @@ class Article extends Component {
     getBody() {
         const { article, isOpen } = this.props
         if (!isOpen) return null
+        if (article.loading) return <Loader />
         return (
             <div>
                 <p>{article.text}</p>
-                <CommentList commentIds = {article.comments} ref = "comments" />
+                <CommentList article = {article} ref = "comments" />
             </div>
         )
     }
@@ -51,16 +61,21 @@ class Article extends Component {
 }
 
 Article.propTypes = {
+    articleId: PropTypes.string.isRequired,
     article: PropTypes.shape({
-        title: PropTypes.string.isRequired,
+        title: PropTypes.string,
         comments: PropTypes.array,
         text: PropTypes.string
-    }).isRequired,
+    }),
     //from connect
     deleteArticle: PropTypes.func
 }
 
 
-export default connect(null, {
-    deleteArticle
+export default connect((state, props) => {
+    return {
+        article: state.articles.getIn(['entities', props.articleId])
+    }
+}, {
+    deleteArticle, loadArticle
 })(Article)
