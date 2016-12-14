@@ -17,6 +17,7 @@ class Root extends Component {
                         <MenuItem link = "/articles" name="Articles index"/>
                         <MenuItem link = "/filters" name="Filters"/>
                         <MenuItem link = "/counter" name="Counter"/>
+                        <MenuItem link = "/comments" name="All comments" />
                     </Menu>
                     {this.props.children}
                 </div>
