@@ -20,4 +20,16 @@ export function checkAndLoadComments(articleId) {
             callAPI: `/api/comment?article=${articleId}`
         })
     }
+
+}
+export function checkAndLoadAllComments(offset, limit) {
+  return (dispatch, getState) => {
+    const { commentsLoaded, commentsLoading } = getState().articles.getIn(['entities', articleId])
+    if (commentsLoaded || commentsLoading) return null
+    dispatch({
+      type: LOAD_COMMENTS,
+      payload: { articleId },
+      callAPI: `/api/comment?offset=${offset}&limit=${limit}`
+    })
+  }
 }

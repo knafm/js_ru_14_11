@@ -26,6 +26,7 @@ class CommentList extends Component {
     }
 
     render() {
+      console.log(`опен ${this.props.isOpen}  id${this.props.article.id}`);
         return (
             <div>
                 {this.getButton()}
